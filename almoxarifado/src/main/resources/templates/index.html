@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt_BR"
+	 xmlns="http://www.w3.org/1999/xhtml" 
+	 xmlns:th="http://thymeleaf.og"
+	 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+	<!-- CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	<title>Almoxarifado</title>	  
+</head>
+<body>
+	<div class="container" style="width: 60%; padding-bottom: 30px;">
+		<h1>Almoxarifado</h1>
+		<button type="button" class="btn btn-outline-success"><a href="cadastrarSetor">Cadastrar Setor</a></button>
+		<br>
+		<table class="table table-hover table-bordered">
+			<thead>
+				<th scope="col">Nome</th>
+				<th scope="col">Data</th>
+				<th scope="col">Descrição</th>
+			</thead>
+			<tbody>
+				<tr th:each="setor : ${setores}">
+					<div class="row">
+						<td><a th:href="@{/{codigo}(codigo = ${setor.codigo}) }"><span th:text="${setor.nome}"></a></span></td>
+						<td><span th:text="${setor.data}"></span></td>
+						<td><span th:text="${setor.descricao}"></span></td>
+					</div>
+				</tr>
+			</tbody>	
+		</table>
+	</div>
+</body>
+</html>

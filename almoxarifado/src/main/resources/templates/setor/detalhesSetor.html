@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt_BR"
+	 xmlns="http://www.w3.org/1999/xhtml" 
+	 xmlns:th="http://thymeleaf.og"
+	 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+	<!-- CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	<title>Setor</title>	  
+</head>
+<body>
+	<div class="container" style="width: 60%; padding-bottom: 30px;">
+		<div th:each="setor: ${setor}">
+		<button type="button" class="btn btn-outline-success"><a href="/setores">Lista de Setores</a></button>
+		<br>
+		<h1>Setor - <span th:text="${setor.nome}"></span></h1>
+			<div>
+				<p>Atualizado em: <span th:text="${setor.data}"></span></p>
+				<p>Descrição do setor: <br><span th:text="${setor.descricao}"></span></p>
+			</div>
+			<form method="post">
+				<div class="form-row">
+					<div class="form-group col-md-6 ">
+						<input type="text" class="form-control" name="nome" placeholder="Nome do Item *"/>
+					</div>
+					<div class="form-group col-md-2 ">
+						<input type="text" class="form-control" name="aberto" placeholder="Abertos *"/>
+					</div>
+					<div class="form-group col-md-2 ">
+						<input type="text" class="form-control" name="fechado" placeholder="Fechados *"/>
+					</div>
+					<div class="form-group col-md-2 ">
+						<input type="text" class="form-control" name="comprar" placeholder="Comprar Item *"/>
+					</div>
+				</div>
+					<small class="form-text text-muted">(*) Campos obrigatórios</small>
+				<button type="submit" class="btn btn-success" style="margin-top: 10px;">Salvar Item</button>
+			</form>
+		</div>
+		<br>
+		<h4>Listagem de Itens do setor:</h4>
+		<table class="table table-hover table-bordered">
+			<thead>
+				<th scope="col">Nome</th>
+				<th scope="col">Aberto</th>
+				<th scope="col">Fechado</th>
+				<th scope="col">Comprar</th>
+			</thead>
+			<tbody>
+				<tr th:each="item : ${itens}">
+					<div class="row">
+						<td><span th:text="${item.nome}"></a></span></td>
+						<td><span th:text="${item.aberto}"></span></td>
+						<td><span th:text="${item.fechado}"></span></td>
+						<td><span th:text="${item.comprar}"></span></td>
+					</div>
+				</tr>
+			</tbody>	
+		</table>
+	</div>
+</body>
+</html>
