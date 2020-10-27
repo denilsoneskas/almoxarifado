@@ -3,16 +3,22 @@ package com.almoxarifado.almoxarifado.models;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.PositiveOrZero;
+
 
 @Entity
 public class Item {
 
 	@Id
-	private String Nome;
+	@NotEmpty
+	private String nome;
 	
-	private String aberto;
+	@PositiveOrZero
+	private int aberto;
 	
-	private String fechado;
+	@PositiveOrZero
+	private int fechado;
 	
 	private String comprar;
 	
@@ -20,26 +26,26 @@ public class Item {
 	private Setor setor;
 
 	public String getNome() {
-		return Nome;
+		return nome;
 	}
 
 	public void setNome(String nome) {
-		Nome = nome;
+		this.nome = nome;
 	}
 
-	public String getAberto() {
+	public int getAberto() {
 		return aberto;
 	}
 
-	public void setAberto(String aberto) {
+	public void setAberto(int aberto) {
 		this.aberto = aberto;
 	}
 
-	public String getFechado() {
+	public int getFechado() {
 		return fechado;
 	}
 
-	public void setFechado(String fechado) {
+	public void setFechado(int fechado) {
 		this.fechado = fechado;
 	}
 
@@ -58,4 +64,5 @@ public class Item {
 	public void setSetor(Setor setor) {
 		this.setor = setor;
 	}
+
 }

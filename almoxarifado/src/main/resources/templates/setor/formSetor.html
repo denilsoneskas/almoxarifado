@@ -9,8 +9,11 @@
 	<title>Cadastro de Setor</title>
 </head>
 <body>
-	<div class="container" style="width: 60%; padding-bottom: 30px;">
+	<div class="container" style="width: 100%; padding-bottom: 30px;">
+		<button type="button" class="btn btn-outline-success"><a href="/">Página Principal</a></button>
+		<button type="button" class="btn btn-outline-success"><a href="setores">Listar Setores</a></button>
 		<h1>Cadastro de Setor</h1>
+		<th:block th:include="mensagemValidacao"></th:block>
 		<form method="post">
 			<div class="form-row">
 				<div class="form-group col-md-10 ">

@@ -3,18 +3,13 @@
 	 xmlns="http://www.w3.org/1999/xhtml" 
 	 xmlns:th="http://thymeleaf.og"
 	 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-
 <head>
 	<!-- CSS -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-	<title>Almoxarifado</title>	  
 </head>
 <body>
-	<div class="container" style="width: 100%; padding-bottom: 30px;">
-		<h1>Almoxarifado</h1>
-		<button type="button" class="btn btn-outline-success"><a href="cadastrarSetor">Cadastrar Setor</a></button>
-		<button type="button" class="btn btn-outline-success"><a href="setores">Listar Setores</a></button>
-		<br>
+	<div class="alert alert-success alert-dismissible" role="alert" th:if="${not #strings.isEmpty(mensagem)}">
+		<span th:text="${mensagem}"></span>
 	</div>
 </body>
 </html>

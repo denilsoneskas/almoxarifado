@@ -10,15 +10,19 @@
 	<title>Setor</title>	  
 </head>
 <body>
-	<div class="container" style="width: 60%; padding-bottom: 30px;">
+	<div class="container" style="width: 100%; padding-bottom: 30px;">
 		<div th:each="setor: ${setor}">
+		<button type="button" class="btn btn-outline-success"><a href="/">Página Principal</a></button>
 		<button type="button" class="btn btn-outline-success"><a href="/setores">Lista de Setores</a></button>
 		<br>
 		<h1>Setor - <span th:text="${setor.nome}"></span></h1>
 			<div>
 				<p>Atualizado em: <span th:text="${setor.data}"></span></p>
-				<p>Descrição do setor: <br><span th:text="${setor.descricao}"></span></p>
+				<p>Descrição: <span th:text="${setor.descricao}"></span></p>
 			</div>
+			
+			<th:block th:include="mensagemValidacao"></th:block>
+			
 			<form method="post">
 				<div class="form-row">
 					<div class="form-group col-md-6 ">
@@ -31,7 +35,11 @@
 						<input type="text" class="form-control" name="fechado" placeholder="Fechados *"/>
 					</div>
 					<div class="form-group col-md-2 ">
-						<input type="text" class="form-control" name="comprar" placeholder="Comprar Item *"/>
+						  <select class="custom-select" id="inputGroupSelect01" name="comprar">
+							    <option selected>Comprar</option>
+							    <option value="Sim">Sim</option>
+							    <option value="Não">Não</option>
+						  </select>
 					</div>
 				</div>
 					<small class="form-text text-muted">(*) Campos obrigatórios</small>
@@ -46,6 +54,7 @@
 				<th scope="col">Aberto</th>
 				<th scope="col">Fechado</th>
 				<th scope="col">Comprar</th>
+				<th scope="col">Ação</th>
 			</thead>
 			<tbody>
 				<tr th:each="item : ${itens}">
@@ -54,6 +63,10 @@
 						<td><span th:text="${item.aberto}"></span></td>
 						<td><span th:text="${item.fechado}"></span></td>
 						<td><span th:text="${item.comprar}"></span></td>
+						<td>
+							<a th:href="@{/deletarItem(nome = ${item.nome}) }"><img th:src="@{/../../imagens/editar.png}" alt="Editar" width="25" height="25"></a></span>
+							<a th:href="@{/deletarItem(nome = ${item.nome}) }"><img th:src="@{/../../imagens/excluir.png}" alt="Deletar" width="25" height="25"></a></span>
+						</td>
 					</div>
 				</tr>
 			</tbody>	
