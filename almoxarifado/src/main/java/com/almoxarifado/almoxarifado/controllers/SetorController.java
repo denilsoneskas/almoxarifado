@@ -1,11 +1,10 @@
 package com.almoxarifado.almoxarifado.controllers;
 
-import java.util.Optional;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,21 +25,21 @@ public class SetorController {
 	
 	@Autowired
 	ItemRepository itemRepository;
-
+	
 	@RequestMapping(value="/cadastrarSetor", method=RequestMethod.GET)
 	public String form() {
 		return "setor/formSetor";
 	}
 	
-	@RequestMapping(value="/cadastrarSetor", method=RequestMethod.POST)
+	@RequestMapping(value="/setores", method=RequestMethod.POST)
 	public String form(@Valid Setor setor, BindingResult result, RedirectAttributes attributes) {
 		if (result.hasErrors()) {
 			attributes.addFlashAttribute("mensagem", "Verifique os campos!");
-			return "redirect:/cadastrarSetor";
+			return "redirect:/setores";
 		}
 		setorRepository.save(setor);
 		attributes.addFlashAttribute("mensagem", "Setor criado com sucesso!");
-		return "redirect:/cadastrarSetor";
+		return "redirect:/setores";
 	}
 	
 	@RequestMapping(value="/setores", method=RequestMethod.GET)
@@ -51,7 +50,7 @@ public class SetorController {
 		return mv;
 	}
 	
-	@RequestMapping(value="/{codigo}", method=RequestMethod.GET)
+	@RequestMapping(value="/detalhesSetor/{codigo}", method=RequestMethod.GET)
 	public ModelAndView detalhesSetor(@PathVariable("codigo") long codigo) {
 		Setor setor = setorRepository.findByCodigo(codigo);
 		ModelAndView mv = new ModelAndView("setor/detalhesSetor");
@@ -61,17 +60,28 @@ public class SetorController {
 		return mv;		
 	}
 	
-	@RequestMapping(value="/{codigo}", method=RequestMethod.POST)
+	@RequestMapping(value="/detalhesSetor/{codigo}", method=RequestMethod.POST)
 	public String detalhesSetor(@PathVariable("codigo") long codigo, @Valid Item item, BindingResult result, RedirectAttributes attributes) {
 		if (result.hasErrors()) {
 			attributes.addFlashAttribute("mensagem", "Verifique os campos!");
-			return "redirect:/{codigo}";
+			return "redirect:/detalhesSetor/{codigo}";
 		}
 		Setor setor = setorRepository.findByCodigo(codigo);
 		item.setSetor(setor);
+		
+		Item temp = itemRepository.findByNome(item.getNome());
+		
+		if (temp == null) {
+			int valor = itemRepository.idMaximo();
+			valor = valor+1;
+			item.setId(valor);
+		} else {
+			item.setId(temp.getId());
+		}
+		
 		itemRepository.save(item);
 		attributes.addFlashAttribute("mensagem", "Item criado com sucesso!");
-		return "redirect:/{codigo}";		
+		return "redirect:/detalhesSetor/{codigo}";		
 	}
 	
 	@RequestMapping("/deletar")
@@ -90,6 +100,7 @@ public class SetorController {
 		long codigoLong = setor.getCodigo();
 		String codigo = "" + codigoLong;
 		
-		return "redirect:/" + codigo;
+		return "redirect:/detalhesSetor/" + codigo;
 	}
+	
 }

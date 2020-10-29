@@ -3,40 +3,67 @@
 	 xmlns="http://www.w3.org/1999/xhtml" 
 	 xmlns:th="http://thymeleaf.og"
 	 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-
 <head>
 	<!-- CSS -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-	<title>Setor</title>	  
+	
+	<script type="text/javascript">
+			
+	function setaCampos(par)
+	{
+		nome="nome"+par;
+		aberto="aberto"+par;
+		fechado="fechado"+par;
+		comprar="comprar"+par;
+		
+		inputNome = document.getElementById(nome).innerHTML;
+		inputNome = inputNome.replace("<span>","").replace("</span>","");
+
+		inputAberto = document.getElementById(aberto).innerHTML;
+		inputAberto = inputAberto.replace("<span>","").replace("</span>","");
+
+		inputFechado = document.getElementById(fechado).innerHTML;
+		inputFechado = inputFechado.replace("<span>","").replace("</span>","");
+
+		document.getElementById("nome").value = inputNome;
+		document.getElementById("aberto").value = inputAberto;
+		document.getElementById("fechado").value = inputFechado;
+	}
+ 
+	</script>
+	
+	<title>Almoxarifado</title>	  
 </head>
 <body>
 	<div class="container" style="width: 100%; padding-bottom: 30px;">
 		<div th:each="setor: ${setor}">
-		<button type="button" class="btn btn-outline-success"><a href="/">Página Principal</a></button>
-		<button type="button" class="btn btn-outline-success"><a href="/setores">Lista de Setores</a></button>
-		<br>
-		<h1>Setor - <span th:text="${setor.nome}"></span></h1>
+			<h1>Almoxarifado</span></h1>
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="/">Home</a></li>
+					<li class="breadcrumb-item"><a href="/setores">Listar Setores</a></li>
+					<li class="breadcrumb-item"><span th:text="${setor.nome}"></span></li>
+				</ol>
+			</nav>
 			<div>
 				<p>Atualizado em: <span th:text="${setor.data}"></span></p>
 				<p>Descrição: <span th:text="${setor.descricao}"></span></p>
 			</div>
-			
 			<th:block th:include="mensagemValidacao"></th:block>
-			
 			<form method="post">
 				<div class="form-row">
 					<div class="form-group col-md-6 ">
-						<input type="text" class="form-control" name="nome" placeholder="Nome do Item *"/>
+						<input type="text" class="form-control" id="nome" name="nome" placeholder="Nome do Item *"/>
 					</div>
 					<div class="form-group col-md-2 ">
-						<input type="text" class="form-control" name="aberto" placeholder="Abertos *"/>
+						<input type="text" class="form-control" id="aberto" name="aberto" placeholder="Abertos *"/>
 					</div>
 					<div class="form-group col-md-2 ">
-						<input type="text" class="form-control" name="fechado" placeholder="Fechados *"/>
+						<input type="text" class="form-control" id="fechado" name="fechado" placeholder="Fechados *"/>
 					</div>
 					<div class="form-group col-md-2 ">
 						  <select class="custom-select" id="inputGroupSelect01" name="comprar">
-							    <option selected>Comprar</option>
+							    <option selected id="comprar" value="Sim">Comprar</option>
 							    <option value="Sim">Sim</option>
 							    <option value="Não">Não</option>
 						  </select>
@@ -48,7 +75,7 @@
 		</div>
 		<br>
 		<h4>Listagem de Itens do setor:</h4>
-		<table class="table table-hover table-bordered">
+		<table class="table table-hover table-sm table-bordered">
 			<thead>
 				<th scope="col">Nome</th>
 				<th scope="col">Aberto</th>
@@ -59,13 +86,13 @@
 			<tbody>
 				<tr th:each="item : ${itens}">
 					<div class="row">
-						<td><span th:text="${item.nome}"></a></span></td>
-						<td><span th:text="${item.aberto}"></span></td>
-						<td><span th:text="${item.fechado}"></span></td>
-						<td><span th:text="${item.comprar}"></span></td>
+						<td th:id="nome + ${item.id}"><span th:text="${item.nome}"></a></span></td>
+						<td th:id="aberto + ${item.id}"><span th:text="${item.aberto}"></span></td>
+						<td th:id="fechado + ${item.id}"><span th:text="${item.fechado}"></span></td>
+						<td th:id="comprar + ${item.id}"><span th:text="${item.comprar}"></span></td>
 						<td>
-							<a th:href="@{/deletarItem(nome = ${item.nome}) }"><img th:src="@{/../../imagens/editar.png}" alt="Editar" width="25" height="25"></a></span>
-							<a th:href="@{/deletarItem(nome = ${item.nome}) }"><img th:src="@{/../../imagens/excluir.png}" alt="Deletar" width="25" height="25"></a></span>
+							<a th:onclick="'setaCampos(\''+${item.id}+'\')'"><img th:src="@{/../../imagens/editar.png}" alt="Editar" width="20" height="20"></a></span>
+							<a th:href="@{/deletarItem(nome = ${item.nome}) }"><img th:src="@{/../../imagens/excluir.png}" alt="Deletar" width="20" height="20"></a></span>
 						</td>
 					</div>
 				</tr>

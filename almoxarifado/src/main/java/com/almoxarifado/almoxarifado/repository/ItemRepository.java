@@ -1,6 +1,7 @@
 package com.almoxarifado.almoxarifado.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import com.almoxarifado.almoxarifado.models.Item;
 import com.almoxarifado.almoxarifado.models.Setor;
@@ -9,4 +10,7 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
 	Iterable<Item> findBySetor(Setor setor);
 	Item findByNome(String nome);
+	
+	@Query("SELECT COALESCE(MAX(id),0) FROM Item")
+	int idMaximo();
 }

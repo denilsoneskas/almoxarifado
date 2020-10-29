@@ -2,6 +2,7 @@ package com.almoxarifado.almoxarifado.models;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,7 +25,7 @@ public class Setor {
 	
 	private String descricao;
 	
-	@OneToMany
+	@OneToMany(mappedBy = "setor", cascade = CascadeType.REMOVE, orphanRemoval = true)
 	private List<Item> itens;
 
 	public long getCodigo() {
