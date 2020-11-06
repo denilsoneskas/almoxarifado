@@ -15,25 +15,22 @@ public class Setor {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private long codigo;
+	private long id;
 	
 	@NotEmpty
 	private String nome;
-	
-	@NotEmpty
-	private String data;
 	
 	private String descricao;
 	
 	@OneToMany(mappedBy = "setor", cascade = CascadeType.REMOVE, orphanRemoval = true)
 	private List<Item> itens;
 
-	public long getCodigo() {
-		return codigo;
+	public long getId() {
+		return id;
 	}
 	
-	public void setCodigo(long codigo) {
-		this.codigo = codigo;
+	public void setId(long id) {
+		this.id = id;
 	}
 	
 	public String getNome() {
@@ -42,14 +39,6 @@ public class Setor {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public String getData() {
-		return data;
-	}
-
-	public void setData(String data) {
-		this.data = data;
 	}
 
 	public String getDescricao() {

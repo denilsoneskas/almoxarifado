@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt_BR"
+	 xmlns="http://www.w3.org/1999/xhtml" 
+	 xmlns:th="http://thymeleaf.og"
+	 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+	<!-- CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	<title>Almoxarifado</title>	
+</head>
+<body>
+	<div class="container" style="width: 100%; padding-bottom: 30px;">
+		<h1>Almoxarifado</h1>
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="/">Home</a></li>
+				<li class="breadcrumb-item">Itens</li>
+			</ol>
+		</nav>
+		<table id="tabelaItensComprar" class="table table-hover table-sm table-bordered">
+			<thead align="center">
+				<th scope="col">ITEM</th>
+				<th scope="col">SETOR DO ITEM</th>
+				<!-- <th scope="col">QUANTIDADE</th> -->
+				<th scope="col">ATUALIZAR</th>
+			</thead>
+			<tbody>
+ 				<tr align="center" th:id="tr + ${itemComprar.id}" th:class="${itemComprar.comprar} == 'Sim' ? 'table-danger' : 'table-success'"  th:each="itemComprar : ${itensComprar} ">
+					<div class="row">
+						<td th:id="nome + ${itemComprar.id}"><span th:text="${itemComprar.nome}"></a></span></td>
+						<td th:id="setorNome + ${itemComprar.id}"><span th:text="${itemComprar.setor.nome}"></span></td>
+					<!-- <td th:id="quantidade + ${itemComprar.id}" contenteditable="true"></span></td>  -->	
+						<td th:id="comprar + ${itemComprar.id}">
+							</span> <a th:href="@{/atualizarItem(id = ${itemComprar.id}, comprar = ${itemComprar.comprar}) }"><img th:src="@{/../../imagens/atualizar.png}" alt="Deletar" width="20" height="20">
+						 </td>
+					</div>
+				</tr>
+			</tbody>	
+		</table>
+		<table class="table table-sm table-bordered">
+			<tr>
+				<td align="center"><b>LEGENDA</b></td>
+				<td align="center" class="table-success">ITEM COMPRADO</td>
+				<td align="center" class="table-danger">ITEM PARA COMPRAR</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

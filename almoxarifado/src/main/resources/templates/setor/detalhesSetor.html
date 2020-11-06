@@ -8,28 +8,30 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 	
 	<script type="text/javascript">
+		function setaCampos(par)
+		{
+			id="id"+par;
+			nome="nome"+par;
+			aberto="aberto"+par;
+			fechado="fechado"+par;
 			
-	function setaCampos(par)
-	{
-		nome="nome"+par;
-		aberto="aberto"+par;
-		fechado="fechado"+par;
-		comprar="comprar"+par;
-		
-		inputNome = document.getElementById(nome).innerHTML;
-		inputNome = inputNome.replace("<span>","").replace("</span>","");
-
-		inputAberto = document.getElementById(aberto).innerHTML;
-		inputAberto = inputAberto.replace("<span>","").replace("</span>","");
-
-		inputFechado = document.getElementById(fechado).innerHTML;
-		inputFechado = inputFechado.replace("<span>","").replace("</span>","");
-
-		document.getElementById("nome").value = inputNome;
-		document.getElementById("aberto").value = inputAberto;
-		document.getElementById("fechado").value = inputFechado;
-	}
- 
+			inputId = document.getElementById(id).innerHTML;
+			inputId = inputId.replace("<span>","").replace("</span>","");
+	
+			inputNome = document.getElementById(nome).innerHTML;
+			inputNome = inputNome.replace("<span>","").replace("</span>","");
+	
+			inputAberto = document.getElementById(aberto).innerHTML;
+			inputAberto = inputAberto.replace("<span>","").replace("</span>","");
+	
+			inputFechado = document.getElementById(fechado).innerHTML;
+			inputFechado = inputFechado.replace("<span>","").replace("</span>","");
+	
+			document.getElementById("id").value = inputId;
+			document.getElementById("nome").value = inputNome;
+			document.getElementById("aberto").value = inputAberto;
+			document.getElementById("fechado").value = inputFechado;
+		}
 	</script>
 	
 	<title>Almoxarifado</title>	  
@@ -45,13 +47,10 @@
 					<li class="breadcrumb-item"><span th:text="${setor.nome}"></span></li>
 				</ol>
 			</nav>
-			<div>
-				<p>Atualizado em: <span th:text="${setor.data}"></span></p>
-				<p>Descrição: <span th:text="${setor.descricao}"></span></p>
-			</div>
 			<th:block th:include="mensagemValidacao"></th:block>
 			<form method="post">
 				<div class="form-row">
+					<input hidden type="text" class="form-control" id="id" name="id" value="0"/>
 					<div class="form-group col-md-6 ">
 						<input type="text" class="form-control" id="nome" name="nome" placeholder="Nome do Item *"/>
 					</div>
@@ -69,14 +68,14 @@
 						  </select>
 					</div>
 				</div>
-					<small class="form-text text-muted">(*) Campos obrigatórios</small>
+				<small class="form-text text-muted">(*) Campos obrigatórios</small>
 				<button type="submit" class="btn btn-success" style="margin-top: 10px;">Salvar Item</button>
 			</form>
 		</div>
 		<br>
-		<h4>Listagem de Itens do setor:</h4>
 		<table class="table table-hover table-sm table-bordered">
-			<thead>
+			<thead align="center">
+				<th hidden scope="col">id</th>
 				<th scope="col">Nome</th>
 				<th scope="col">Aberto</th>
 				<th scope="col">Fechado</th>
@@ -84,15 +83,16 @@
 				<th scope="col">Ação</th>
 			</thead>
 			<tbody>
-				<tr th:each="item : ${itens}">
+				<tr align="center" th:each="item : ${itens}">
 					<div class="row">
+						<td hidden th:id="id + ${item.id}"><span th:text="${item.id}"></a></span></td>
 						<td th:id="nome + ${item.id}"><span th:text="${item.nome}"></a></span></td>
 						<td th:id="aberto + ${item.id}"><span th:text="${item.aberto}"></span></td>
 						<td th:id="fechado + ${item.id}"><span th:text="${item.fechado}"></span></td>
 						<td th:id="comprar + ${item.id}"><span th:text="${item.comprar}"></span></td>
 						<td>
 							<a th:onclick="'setaCampos(\''+${item.id}+'\')'"><img th:src="@{/../../imagens/editar.png}" alt="Editar" width="20" height="20"></a></span>
-							<a th:href="@{/deletarItem(nome = ${item.nome}) }"><img th:src="@{/../../imagens/excluir.png}" alt="Deletar" width="20" height="20"></a></span>
+							<a th:href="@{/deletarItem(id = ${item.id}) }"><img th:src="@{/../../imagens/excluir.png}" alt="Deletar" width="20" height="20"></a></span>
 						</td>
 					</div>
 				</tr>

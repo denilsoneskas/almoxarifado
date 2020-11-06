@@ -1,5 +1,7 @@
 package com.almoxarifado.almoxarifado.controllers;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,7 @@ import com.almoxarifado.almoxarifado.repository.ItemRepository;
 import com.almoxarifado.almoxarifado.repository.SetorRepository;
 
 @Controller
-public class SetorController {
+public class AlmoxarifadoController {
 	
 	@Autowired
 	SetorRepository setorRepository;
@@ -26,11 +28,16 @@ public class SetorController {
 	@Autowired
 	ItemRepository itemRepository;
 	
+	@RequestMapping("/")
+	public String index() {
+		return "index";
+	}
+	
 	@RequestMapping(value="/cadastrarSetor", method=RequestMethod.GET)
 	public String form() {
 		return "setor/formSetor";
 	}
-	
+
 	@RequestMapping(value="/setores", method=RequestMethod.POST)
 	public String form(@Valid Setor setor, BindingResult result, RedirectAttributes attributes) {
 		if (result.hasErrors()) {
@@ -38,7 +45,7 @@ public class SetorController {
 			return "redirect:/setores";
 		}
 		setorRepository.save(setor);
-		attributes.addFlashAttribute("mensagem", "Setor criado com sucesso!");
+		attributes.addFlashAttribute("mensagem", "Setor salvo com sucesso!");
 		return "redirect:/setores";
 	}
 	
@@ -50,9 +57,9 @@ public class SetorController {
 		return mv;
 	}
 	
-	@RequestMapping(value="/detalhesSetor/{codigo}", method=RequestMethod.GET)
-	public ModelAndView detalhesSetor(@PathVariable("codigo") long codigo) {
-		Setor setor = setorRepository.findByCodigo(codigo);
+	@RequestMapping(value="/detalhesSetor/{id}", method=RequestMethod.GET)
+	public ModelAndView detalhesSetor(@PathVariable("id") long id) {
+		Setor setor = setorRepository.findById(id).get();
 		ModelAndView mv = new ModelAndView("setor/detalhesSetor");
 		mv.addObject("setor", setor);
 		Iterable<Item> itens = itemRepository.findBySetor(setor);
@@ -60,47 +67,57 @@ public class SetorController {
 		return mv;		
 	}
 	
-	@RequestMapping(value="/detalhesSetor/{codigo}", method=RequestMethod.POST)
-	public String detalhesSetor(@PathVariable("codigo") long codigo, @Valid Item item, BindingResult result, RedirectAttributes attributes) {
+	@RequestMapping(value="/detalhesSetor/{id}", method=RequestMethod.POST)
+	public String detalhesSetor(@PathVariable("id") long id, @Valid Item item, BindingResult result, RedirectAttributes attributes) {
 		if (result.hasErrors()) {
 			attributes.addFlashAttribute("mensagem", "Verifique os campos!");
-			return "redirect:/detalhesSetor/{codigo}";
+			return "redirect:/detalhesSetor/{id}";
 		}
-		Setor setor = setorRepository.findByCodigo(codigo);
+		Setor setor = setorRepository.findById(id).get();
 		item.setSetor(setor);
 		
-		Item temp = itemRepository.findByNome(item.getNome());
-		
-		if (temp == null) {
-			int valor = itemRepository.idMaximo();
-			valor = valor+1;
-			item.setId(valor);
-		} else {
-			item.setId(temp.getId());
-		}
-		
 		itemRepository.save(item);
-		attributes.addFlashAttribute("mensagem", "Item criado com sucesso!");
-		return "redirect:/detalhesSetor/{codigo}";		
+		attributes.addFlashAttribute("mensagem", "Item salvo com sucesso!");
+		return "redirect:/detalhesSetor/{id}";		
 	}
 	
 	@RequestMapping("/deletar")
-	public String deletarSetor(long codigo) {
-		Setor setor = setorRepository.findByCodigo(codigo);
+	public String deletarSetor(long id) {
+		Setor setor = setorRepository.findById(id).get();
 		setorRepository.delete(setor);
 		return "redirect:/setores";
 	}
 
 	@RequestMapping("/deletarItem")
-	public String deletarItem(String nome) {
-		Item item = itemRepository.findByNome(nome);
+	public String deletarItem(long id) {
+		Item item = itemRepository.findById(id).get();
 		itemRepository.delete(item);
 		
 		Setor setor = item.getSetor();
-		long codigoLong = setor.getCodigo();
-		String codigo = "" + codigoLong;
+		long idLong = setor.getId();
+		String codigo = "" + idLong;
 		
 		return "redirect:/detalhesSetor/" + codigo;
 	}
 	
+	@RequestMapping(value="/itensComprar", method=RequestMethod.GET)
+	public ModelAndView itensComprar() {
+		ModelAndView mv = new ModelAndView("item/itensComprar");
+		List<Item> itensComprar = itemRepository.itensComprar();
+		mv.addObject("itensComprar", itensComprar);
+		return mv;
+	}
+	
+	@RequestMapping("/atualizarItem")
+	public String atualizarItem(long id, String comprar ) {
+		Item item = itemRepository.findById(id).get();
+		if (item.getComprar().equals("Sim")) {
+			item.setComprar("Não");
+		} else {
+			item.setComprar("Sim");
+		}
+		itemRepository.save(item);
+		return "redirect:/itensComprar";
+	}
+
 }

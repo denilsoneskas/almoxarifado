@@ -5,7 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.PositiveOrZero;
 
@@ -14,6 +13,9 @@ import javax.validation.constraints.PositiveOrZero;
 public class Item {
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private long id;
+
 	@NotEmpty
 	private String nome;
 	
@@ -25,17 +27,14 @@ public class Item {
 	
 	private String comprar;
 	
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
-	private int id;
-	
 	@ManyToOne
 	private Setor setor;
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
