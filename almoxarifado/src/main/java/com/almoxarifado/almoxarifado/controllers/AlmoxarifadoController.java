@@ -109,13 +109,25 @@ public class AlmoxarifadoController {
 	}
 	
 	@RequestMapping("/atualizarItem")
-	public String atualizarItem(long id, String comprar ) {
+	public String atualizarItem(long id, String comprar, String acao ) {
 		Item item = itemRepository.findById(id).get();
-		if (item.getComprar().equals("Sim")) {
-			item.setComprar("Não");
-		} else {
-			item.setComprar("Sim");
+
+		if (acao.equals("mais")) {
+			int qtd = item.getFechado() + 1;
+			item.setFechado(qtd);
 		}
+		if (acao.equals("menos")) {
+			int qtd = item.getFechado() - 1;
+			item.setFechado(qtd);
+		}
+		
+		if (item.getFechado() <= 0 ) {
+			item.setFechado(0);
+			item.setComprar("Sim");
+		} else {
+			item.setComprar("Não");
+		}
+
 		itemRepository.save(item);
 		return "redirect:/itensComprar";
 	}
