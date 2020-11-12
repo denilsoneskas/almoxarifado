@@ -109,17 +109,16 @@ public class AlmoxarifadoController {
 	}
 	
 	@RequestMapping("/atualizarItem")
-	public String atualizarItem(long id, String comprar, String acao ) {
+	public String atualizarItem(long id, int aberto, int fechado) {
 		Item item = itemRepository.findById(id).get();
+		
+		int qtdAberto = item.getAberto() + aberto;
+		int qtdFechado = item.getFechado() + fechado;
+		item.setAberto(qtdAberto);
+		item.setFechado(qtdFechado);
 
-		if (acao.equals("mais")) {
-			int qtd = item.getFechado() + 1;
-			item.setFechado(qtd);
-		}
-		if (acao.equals("menos")) {
-			int qtd = item.getFechado() - 1;
-			item.setFechado(qtd);
-		}
+		if (item.getAberto() <=0)
+			item.setAberto(0);
 		
 		if (item.getFechado() <= 0 ) {
 			item.setFechado(0);

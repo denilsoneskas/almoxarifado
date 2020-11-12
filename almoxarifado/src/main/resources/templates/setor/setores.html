@@ -7,6 +7,25 @@
 	<!-- CSS -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 	<title>Almoxarifado</title>	  
+	
+		<script type="text/javascript">
+		function setaCampos(par)
+		{
+			id="id"+par;
+			nome="nome"+par;
+			descricao="descricao"+par;
+			console.log(id," ",nome, " ",descricao);
+			
+			inputId = document.getElementById(id).innerHTML.replace("<span>","").replace("</span>","");
+			inputNome = document.getElementById(nome).innerHTML.replace("<span>","").replace("</span>","");
+			inputDescricao = document.getElementById(descricao).innerHTML.replace("<span>","").replace("</span>","");
+	
+			document.getElementById("id").value = inputId;
+			document.getElementById("nome").value = inputNome;
+			document.getElementById("descricao").value = inputDescricao;
+		}
+	</script>
+	
 </head>
 <body>
 	<div class="container" style="width: 100%; padding-bottom: 30px;">
@@ -14,34 +33,40 @@
 		<nav aria-label="breadcrumb">
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item"><a href="/">Home</a></li>
+				<li class="breadcrumb-item"><a href="/itensComprar">Itens</a></li>
 				<li class="breadcrumb-item">Setores</li>
 			</ol>
 		</nav>
 		<th:block th:include="mensagemValidacao"></th:block>
 		<form method="post">
 			<div class="form-row">
+				<input hidden type="text" class="form-control" id="id" name="id" value="0"/>
 				<div class="form-group col-md-4 ">
-					<input type="text" class="form-control" name="nome" placeholder="Nome do Setor *">
+					<input type="text" class="form-control" id="nome" name="nome" placeholder="Nome do Setor *">
 				</div>
 				<div class="form-group col-md-8 ">
-					<input type="text" class="form-control" name="descricao" placeholder="Descrição do Setor *">
+					<input type="text" class="form-control" id="descricao" name="descricao" placeholder="Descrição do Setor *">
 				</div>
 			</div>
 			<small class="form-text text-muted">(*) Campos obrigatórios</small>
 			<button type="submit" class="btn btn-success" style="margin-top: 10px;">Salvar</button>
 		</form> <br>		
 		<table class="table table-hover table-sm table-bordered">
-			<thead>
+			<thead  align="center">
+				<th scope="col">Itens</th>
 				<th scope="col">Nome</th>
 				<th scope="col">Descrição</th>
 				<th scope="col">Ações</th>
 			</thead>
 			<tbody>
-				<tr th:each="setor : ${setores}">
+				<tr align="center" th:each="setor : ${setores}">
 					<div class="row">
-						<td><a th:href="@{detalhesSetor/{id}(id = ${setor.id}) }"><span th:text="${setor.nome}"></a></span></td>
-						<td><span th:text="${setor.descricao}"></span></td>
+						<td hidden th:id="id + ${setor.id}"><span th:text="${setor.id}"></span></td>
+						<td th:id="acesso + ${setor.id}"><a th:href="@{detalhesSetor/{id}(id = ${setor.id}) }"><img th:src="@{/../../imagens/itens.png}" alt="Editar" width="20" height="20"></a></span></td>
+						<td th:id="nome + ${setor.id}"><span th:text="${setor.nome}"></span></td>
+						<td th:id="descricao + ${setor.id}"><span th:text="${setor.descricao}"></span></td>
 						<td>
+							<a th:onclick="'setaCampos(\''+${setor.id}+'\')'"><img th:src="@{/../../imagens/editar.png}" alt="Editar" width="20" height="20"></a></span>
 							<a th:href="@{/deletar(id = ${setor.id}) }"><img th:src="@{/../../imagens/excluir.png}" alt="Deletar" width="20" height="20"></a></span>
 						</td>
 					</div>

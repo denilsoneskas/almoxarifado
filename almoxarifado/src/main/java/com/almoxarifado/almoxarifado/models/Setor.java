@@ -22,7 +22,8 @@ public class Setor {
 	
 	private String descricao;
 	
-	@OneToMany(mappedBy = "setor", cascade = CascadeType.REMOVE, orphanRemoval = true)
+//	@OneToMany(mappedBy = "setor", cascade = CascadeType.REMOVE, orphanRemoval = true)
+	@OneToMany(mappedBy = "setor", cascade = CascadeType.REMOVE)
 	private List<Item> itens;
 
 	public long getId() {

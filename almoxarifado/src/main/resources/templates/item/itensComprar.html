@@ -14,28 +14,32 @@
 		<nav aria-label="breadcrumb">
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item"><a href="/">Home</a></li>
-				<li class="breadcrumb-item">Listagem de Itens</li>
+				<li class="breadcrumb-item active">Itens</li>
+				<li class="breadcrumb-item"><a href="/setores">Setores</a></li>
 			</ol>
 		</nav>
 		<table id="tabelaItensComprar" class="table table-hover table-sm table-bordered">
 			<thead align="center">
+				<th scope="col">SETOR</th>
 				<th scope="col">ITEM</th>
-				<th scope="col">SETOR DO ITEM</th>
 				<th scope="col">ABERTO(s)</th>
 				<th scope="col">FECHADO(s)</th>
-				<th scope="col">ATUALIZAR</th>
 			</thead>
 			<tbody>
  				<tr align="center" th:id="tr + ${itemComprar.id}" th:class="${itemComprar.comprar} == 'Sim' ? 'table-danger' : 'table-success'"  th:each="itemComprar : ${itensComprar} ">
 					<div class="row">
-						<td th:id="nome + ${itemComprar.id}"><span th:text="${itemComprar.nome}"></a></span></td>
 						<td th:id="setorNome + ${itemComprar.id}"><span th:text="${itemComprar.setor.nome}"></span></td>
-						<td th:id="aberto + ${itemComprar.id}"><span th:text="${itemComprar.aberto}"></span></td>
-						<td th:id="fechado + ${itemComprar.id}"><span th:text="${itemComprar.fechado}"></span></td>
-						<td th:id="comprar + ${itemComprar.id}">
-							</span> <a th:href="@{/atualizarItem(id = ${itemComprar.id}, comprar = ${itemComprar.comprar}, acao = mais) }"><img th:src="@{/../../imagens/mais.png}" alt="Incrementar" width="20" height="20">
-							</span> <a th:href="@{/atualizarItem(id = ${itemComprar.id}, comprar = ${itemComprar.comprar}, acao = menos) }"><img th:src="@{/../../imagens/menos.png}" alt="Decrementar" width="20" height="20">
-						 </td>
+						<td th:id="nome + ${itemComprar.id}"><span th:text="${itemComprar.nome}"></a></span></td>
+						<td th:id="aberto + ${itemComprar.id}">
+							<a th:href="@{/atualizarItem(id = ${itemComprar.id}, aberto=1, fechado=-1) }"><img th:src="@{/../../imagens/mais.png}" alt="Incrementar" width="20" height="20"></a>
+							<span th:text="${itemComprar.aberto}"></span>
+							<a th:href="@{/atualizarItem(id = ${itemComprar.id}, aberto=-1, fechado=0) }"><img th:src="@{/../../imagens/menos.png}" alt="Decrementar" width="20" height="20"></a>
+						</td>
+						<td th:id="fechado + ${itemComprar.id}">
+							<a th:href="@{/atualizarItem(id = ${itemComprar.id}, aberto=0, fechado=1) }"><img th:src="@{/../../imagens/mais.png}" alt="Incrementar" width="20" height="20"></a>
+							<span th:text="${itemComprar.fechado}"></span>
+							<a th:href="@{/atualizarItem(id = ${itemComprar.id}, aberto=0, fechado=-1) }"><img th:src="@{/../../imagens/menos.png}" alt="Decrementar" width="20" height="20"></a>
+						</td>
 					</div>
 				</tr>
 			</tbody>	
