@@ -84,8 +84,9 @@
 						<td th:id="fechado + ${item.id}"><span th:text="${item.fechado}"></span></td>
 						<td th:id="comprar + ${item.id}"><span th:text="${item.comprar}"></span></td>
 						<td>
-							<a th:onclick="'setaCampos(\''+${item.id}+'\')'"><img th:src="@{/../../imagens/editar.png}" alt="Editar" width="16" height="16"></a></span>
-							<a th:href="@{/deletarItem(id = ${item.id}) }"><img th:src="@{/../../imagens/excluir.png}" alt="Deletar" width="16" height="16"></a></span>
+							<a th:onclick="'setaCampos(\''+${item.id}+'\')'"><img th:src="@{/../../imagens/editar.png}" alt="Editar" width="20" height="20"></a>
+							-
+							<a th:href="@{/deletarItem(id = ${item.id}) }"><img th:src="@{/../../imagens/excluir.png}" alt="Deletar" width="20" height="20"></a>
 						</td>
 					</div>
 				</tr>
