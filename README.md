@@ -1,0 +1,2 @@
+# almoxarifado
+A ideia era fazer uma lista de compras eletronica. São cadastrados setores e itens. Lista os itens e marca em vermelho se o item estiver zerado em "fechado". Na listagem é possível alterar as quantidades. Criado em (Java, PostgreSQL, Thymeleaf, HTML, bootstrap) e baseado no curso de Spring Boot da "Michelli Brito"  https://www.youtube.com/playlist?list=PL8iIphQOyG-DHLpEx1TPItqJamy08fs1D 
