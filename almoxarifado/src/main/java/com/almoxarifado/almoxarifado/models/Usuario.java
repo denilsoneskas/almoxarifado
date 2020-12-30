@@ -14,8 +14,6 @@ public class Usuario implements UserDetails {
 	@Id
 	private String login;
 	
-	private String nomeCompleto;
-	
 	private String senha;
 
 	public String getLogin() {
@@ -24,14 +22,6 @@ public class Usuario implements UserDetails {
 
 	public void setLogin(String login) {
 		this.login = login;
-	}
-
-	public String getNomeCompleto() {
-		return nomeCompleto;
-	}
-
-	public void setNomeCompleto(String nomeCompleto) {
-		this.nomeCompleto = nomeCompleto;
 	}
 
 	public String getSenha() {
@@ -44,7 +34,6 @@ public class Usuario implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -60,28 +49,22 @@ public class Usuario implements UserDetails {
 
 	@Override
 	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public boolean isEnabled() {
-		// TODO Auto-generated method stub
 		return true;
 	}
-
-	
 	
 }

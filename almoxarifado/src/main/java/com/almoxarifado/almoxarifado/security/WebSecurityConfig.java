@@ -16,12 +16,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	private ImplementsUserDetailsService userDetailsService;
-
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable().authorizeRequests().antMatchers(HttpMethod.GET, "/").permitAll()
-		.anyRequest().authenticated().and().formLogin().permitAll().and().logout()
-		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
+		http.csrf().disable().authorizeRequests().antMatchers(HttpMethod.GET, "/", "/itensListar").permitAll()
+		.anyRequest().authenticated().and().formLogin().loginPage("/login.html").failureUrl("/login-falha.html").permitAll()
+		.and()
+		.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/");;
 	}
 	
 	@Override

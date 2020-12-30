@@ -33,6 +33,17 @@ public class AlmoxarifadoController {
 		return "index";
 	}
 	
+	@RequestMapping("/login.html")
+	public String login() {
+		return "login.html";
+	}
+	
+	@RequestMapping("/login-falha.html")
+	public String loginFalha(Model model) {
+		model.addAttribute("loginError", true);
+		return "login.html";
+	}
+	
 	@RequestMapping(value="/cadastrarSetor", method=RequestMethod.GET)
 	public String form() {
 		return "setor/formSetor";
@@ -76,6 +87,9 @@ public class AlmoxarifadoController {
 		Setor setor = setorRepository.findById(id).get();
 		item.setSetor(setor);
 		
+		if (item.getFechado() > 0)
+			item.setComprar("Não");
+		
 		itemRepository.save(item);
 		attributes.addFlashAttribute("mensagem", "Item salvo com sucesso!");
 		return "redirect:/detalhesSetor/{id}";		
@@ -105,6 +119,22 @@ public class AlmoxarifadoController {
 		ModelAndView mv = new ModelAndView("item/itensComprar");
 		List<Item> itensComprar = itemRepository.itensComprar();
 		mv.addObject("itensComprar", itensComprar);
+		return mv;
+	}
+	
+	@RequestMapping(value="/itensTodos", method=RequestMethod.GET)
+	public ModelAndView itensTodos() {
+		ModelAndView mv = new ModelAndView("item/itensComprar");
+		List<Item> itensComprar = itemRepository.itensTodos();
+		mv.addObject("itensComprar", itensComprar);
+		return mv;
+	}
+	
+	@RequestMapping(value="/itensListar", method=RequestMethod.GET)
+	public ModelAndView itensListar() {
+		ModelAndView mv = new ModelAndView("item/itensListar");
+		List<Item> itensListar = itemRepository.itensTodos();
+		mv.addObject("itensListar", itensListar);
 		return mv;
 	}
 	

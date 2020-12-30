@@ -36,9 +36,10 @@
 			<nav aria-label="breadcrumb">
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item"><a href="/">Home</a></li>
-					<li class="breadcrumb-item"><a href="/itensComprar">Itens</a></li>
+					<li class="breadcrumb-item">Itens -> <a href="/itensComprar">Comprar</a>-<a href="/itensTodos">Todos</a></li>
 					<li class="breadcrumb-item"><a href="/setores">Setores</a></li>
 					<li class="breadcrumb-item"><span th:text="${setor.nome}"></span></li>
+					<li class="breadcrumb-item"><a href="/logout">Logout</a></li>
 				</ol>
 			</nav>
 			<th:block th:include="mensagemValidacao"></th:block>
@@ -48,14 +49,14 @@
 					<div class="form-group col-md-6 ">
 						<input type="text" class="form-control" id="nome" name="nome" placeholder="Nome do Item *"/>
 					</div>
-					<div class="form-group col-md-2 ">
+					<div class="form-group col-md-3 ">
 						<input type="text" class="form-control" id="aberto" name="aberto" placeholder="Abertos *"/>
 					</div>
-					<div class="form-group col-md-2 ">
+					<div class="form-group col-md-3 ">
 						<input type="text" class="form-control" id="fechado" name="fechado" placeholder="Fechados *"/>
 					</div>
 					<div class="form-group col-md-2 ">
-						  <select class="custom-select" id="inputGroupSelect01" name="comprar">
+						  <select hidden class="custom-select" id="inputGroupSelect01" name="comprar">
 							    <option selected id="comprar" value="Sim">Comprar</option>
 							    <option value="Não">Não</option>
 						  </select>
@@ -92,6 +93,9 @@
 				</tr>
 			</tbody>	
 		</table>
+		<footer class="footer">
+	        <span class="text-muted">Desenvolvido por: Denilson Martins</span>
+	    </footer>
 	</div>
 </body>
 </html>

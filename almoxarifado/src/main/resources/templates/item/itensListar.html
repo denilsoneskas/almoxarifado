@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt_BR"
+	 xmlns="http://www.w3.org/1999/xhtml" 
+	 xmlns:th="http://thymeleaf.og"
+	 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+	<!-- CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	<title>Almoxarifado</title>	
+</head>
+<body>
+	<div class="container" style="width: 100%; padding-bottom: 30px;">
+		<h1>Almoxarifado</h1>
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="/">Home</a></li>
+			</ol>
+		</nav>
+		<table id="tabelaItensListar" class="table table-hover table-sm table-bordered">
+			<thead align="center">
+				<th scope="col">SETOR</th>
+				<th scope="col">ITEM</th>
+			</thead>
+			<tbody>
+ 				<tr align="center" th:id="tr + ${itemListar.id}" th:each="itemListar : ${itensListar} ">
+					<div class="row">
+						<td th:id="setorNome + ${itemListar.id}"><span th:text="${itemListar.setor.nome}"></span></td>
+						<td th:id="nome + ${itemListar.id}"><span th:text="${itemListar.nome}"></a></span></td>
+					</div>
+				</tr>
+			</tbody>	
+		</table>
+		<footer class="footer">
+	        <span class="text-muted">Desenvolvido por: Denilson Martins</span>
+	    </footer>
+	</div>
+</body>
+</html>

@@ -33,8 +33,9 @@
 		<nav aria-label="breadcrumb">
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item"><a href="/">Home</a></li>
-				<li class="breadcrumb-item"><a href="/itensComprar">Itens</a></li>
+				<li class="breadcrumb-item">Itens -> <a href="/itensComprar">Comprar</a>-<a href="/itensTodos">Todos</a></li>
 				<li class="breadcrumb-item">Setores</li>
+				<li class="breadcrumb-item"><a href="/logout">Logout</a></li>
 			</ol>
 		</nav>
 		<th:block th:include="mensagemValidacao"></th:block>
@@ -74,6 +75,9 @@
 				</tr>
 			</tbody>	
 		</table>
+		<footer class="footer">
+	        <span class="text-muted">Desenvolvido por: Denilson Martins</span>
+	    </footer>
 	</div>
 </body>
 </html>

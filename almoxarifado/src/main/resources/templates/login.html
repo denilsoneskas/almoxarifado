@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt_BR"
+	 xmlns="http://www.w3.org/1999/xhtml" 
+	 xmlns:th="http://thymeleaf.og"
+	 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+	<!-- CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	<title>Login do Almoxarifado</title>	  
+</head>
+<body>
+	<div class="container" style="width: 20%; height: 100%; padding-bottom: 10px;">
+		<h1 align="center">Login</h1>
+		<p align="center" th:if="${loginError}" class="error">Usuário ou Senha inválido</p>
+		<form th:action="@{/login.html}" method="post">
+			<div class="form-row">
+				<div class="form-group col-md-12 ">
+					<input type="text" class="form-control" id="username" name="username" placeholder="Usuário">
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-group col-md-12 ">
+					<input type="password" class="form-control" align="center" id="password" name="password" placeholder="Senha">
+				</div>
+			</div>
+			<button type="submit" class="btn btn-success" style="margin-top: 10px;">Entrar</button>
+		</form>
+		<footer class="footer">
+	        <span class="text-muted">Desenvolvido por: Denilson Martins</span>
+	    </footer>
+	</div>
+</body>
+</html>

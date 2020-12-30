@@ -14,5 +14,8 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 	Item findByNome(String nome);
 
 	@Query(nativeQuery = true, value = "SELECT * FROM item INNER JOIN setor ON item.setor_id = setor.id ORDER BY setor.nome ASC, item.nome ASC") 
+	List<Item> itensTodos();
+	
+	@Query(nativeQuery = true, value = "SELECT * FROM item INNER JOIN setor ON item.setor_id = setor.id WHERE item.comprar = 'Sim' ORDER BY setor.nome ASC, item.nome ASC") 
 	List<Item> itensComprar();
 }
